@@ -4,12 +4,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
 from createPromo import create_promo
 from assignPromo import assignPromo
 
 #HTML search heirarchy: ID -> Name -> Class
-PATH = "C:\Program Files (x86)/chromedriver.exe"
-DRIVER = webdriver.Chrome(PATH)
+DRIVER = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 def open_game(name):
     DRIVER.get("https://emulator.rubicon.vsslots.com/")
     DRIVER.maximize_window()
@@ -30,7 +32,7 @@ def open_game(name):
     except:
         DRIVER.quit()
 
-    DRIVER.close()
+    DRIVER.quit()
 
 
 def test_game():

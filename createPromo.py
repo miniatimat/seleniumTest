@@ -3,7 +3,8 @@ import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from datetime import date
 import time
 
@@ -12,8 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 #HTML search heirarchy: ID -> Name -> Class
-PATH = "C:\Program Files (x86)/chromedriver.exe"
-DRIVER = webdriver.Chrome(PATH)
+DRIVER = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 def create_promo(promoCode, games, selectedCurrency):
     #Log into Bob
@@ -61,6 +61,7 @@ def create_promo(promoCode, games, selectedCurrency):
     allowedOperatorsField = WebDriverWait(DRIVER, 10).until(EC.presence_of_element_located((By.ID, "CMP00_create_operator_id_chosen")))
     allowedOperators = allowedOperatorsField.find_element(By.CSS_SELECTOR, "input")
     allowedOperators.send_keys("Vibragaming QA")
+    allowedOperators.send_keys("Vibragaming QA")
     allowedOperators.send_keys(Keys.ENTER)
     allowedOperators.send_keys("RavCorp Kiosk")
     allowedOperators.send_keys(Keys.ENTER)
@@ -83,8 +84,8 @@ def create_promo(promoCode, games, selectedCurrency):
 
 
     DRIVER.find_element(By.ID, "CMP00-create").submit()
-    time.sleep(10)
+    time.sleep(120)
     DRIVER.quit()
 
-#create_promo("SeleniumTest", ["chocolate", "salariazo"], "US Dollar")
+create_promo("SeleniumTest", ["chocolate", "salariazo"], "US Dollar")
 
